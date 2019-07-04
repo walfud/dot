@@ -1,0 +1,161 @@
+// https://graphviz.gitlab.io/_pages/doc/info/attrs.html
+digraph newGitBranch {
+rankdir="BT";
+nodesep=0.5;
+ranksep=0.25;
+splines=true;
+forcelabels=false;
+
+// general
+node [style=filled, color="black", fontcolor="black", font="Consolas", fontsize="8pt" ];
+edge [arrowhead=open, color="black", penwidth=1];
+
+// graph
+node [width=0.2, height=0.2, fixedsize=true, label="", shape=circle, penwidth=2]
+
+// branches
+node [group="master", fillcolor="#27E4F9"];
+mfirst;
+m110;
+m111;
+m120;
+m200;
+subgraph {
+    rank=min;
+    mfake [label="master", fixedsize=false, fontsize=14, fillcolor=none, shape=none, width=0, height=0, penwidth=0, margin=0.05];
+}
+mfake -> mfirst -> m110 -> m111 -> m120 -> m200;
+
+node  [group="develop", fillcolor="#FFE333"];
+d0;
+d200_begin;
+d110;
+d120;
+d200;
+subgraph {
+    rank=source;
+    dfake [label="develop", fixedsize=false, fontsize=14, fillcolor=none, shape=none, width=0, height=0, penwidth=0, margin=0.05];
+}
+dfake -> d0 -> d200_begin -> d110 -> d120 -> d200;
+
+// 1.1.0
+node  [group="develop/1.1.0", fillcolor="#FFE333"];
+d110_first;
+d110_2;
+d110_3;
+d110_last;
+d0 -> d110_first [label="dev/1.1.0"];
+d110_first -> d110_2 -> d110_3 -> d110_last;
+
+node  [group="feature/110", fillcolor="#FB3DB5"];
+f110_1;
+f110_2;
+d110_first -> f110_1 -> f110_2 -> d110_3;
+f110_3;
+f110_4;
+d110_2 -> f110_3 -> f110_4 -> d110_last;
+
+node  [group="release/1.1.0", fillcolor="#52C322"];
+r110_1;
+r110_2;
+d110_last -> r110_1 [label="release/1.1.0"];
+r110_1 -> r110_2 -> { m110, d110 };
+
+// 1.2.0
+node  [group="develop/1.2.0", fillcolor="#FFE333"];
+d120_first;
+d120_2;
+d120_last;
+d110 -> d120_first [label="dev/1.2.0"];
+d120_first -> d120_2 -> d120_last;
+
+node  [group="feature/120", fillcolor="#FB3DB5"];
+f120_1;
+f120_2;
+d120_first -> f120_1 -> f120_2 -> d120_last;
+
+node  [group="release/1.1.0", fillcolor="#52C322"];
+r120_1;
+r120_2;
+d120_last -> r120_1 [label="release/1.2.0"];
+r120_1 -> r120_2 -> { m120, d120 };
+
+// 2.0.0
+node  [group="develop/2.0.0", fillcolor="#FFE333"];
+d200_first;
+d200_2;
+d200_3;
+d200_4;
+d200_5;
+d200_6;
+d200_7;
+d200_8;
+d200_9;
+d200_last;
+d200_begin -> d200_first [label="dev/2.0.0"];
+d200_first -> d200_2 -> d200_3 -> d200_4 -> d200_5 -> d200_6 -> d200_7 -> d200_8 -> d200_9 -> d200_last;
+
+node  [group="feature/200", fillcolor="#FB3DB5"];
+f200_1;
+f200_2;
+d200_first -> f200_1 -> f200_2 -> d200_3;
+f200_3;
+f200_4;
+d200_3 -> f200_3 -> f200_4 -> d200_5;
+f200_9;
+f200_10;
+d200_6 -> f200_9 -> f200_10 -> d200_last;
+f200_11;
+f200_12;
+d200_5 -> f200_11 -> f200_12 -> d200_8;
+subgraph {
+    rank=same;
+    f200_10;
+    d200_9;
+}
+
+node  [group="release/2.0.0", fillcolor="#52C322"];
+r200_first;
+r200_2;
+r200_last;
+d200_last -> r200_first [label="release/2.0.0"];
+r200_first -> r200_2 -> r200_last -> { m200, d200 };
+
+// hotfix
+node  [group="hotfix/1.1.1", fillcolor=red];
+h111;
+m110 -> h111 [label="hotfix"];
+h111 -> {m111, r120_2, d200_8}
+
+// tags connections
+node [shape=cds, fixedsize=false, fillcolor="#C6C6C6", penwidth=0.5, margin="0.1,0.055"]
+edge [color="#b0b0b0", style=dotted, len=0.3, arrowhead=none, penwidth=1];
+t110 [label="v1.1.0"]
+t111 [label="v1.1.1"]
+t120 [label="v1.2.0"]
+t200 [label="v2.0.0"]
+subgraph  {
+    rank="same";
+    m110 -> t110;
+}
+subgraph  {
+    rank="same";
+    m111 -> t111;
+}
+subgraph  {
+    rank="same";
+    m120 -> t120 ;
+}
+subgraph  {
+    rank="same";
+    m200 -> t200;
+}
+
+// Magic align...
+
+subgraph {
+    rank=same;
+    r120_1;
+    h111;
+}
+}
