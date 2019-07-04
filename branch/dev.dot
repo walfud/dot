@@ -29,7 +29,7 @@ d11;
 d12;
 subgraph {
     rank=source;
-    dfake [label="develop old", fixedsize=false, fontsize=14, fillcolor=none, shape=none, width=0, height=0, penwidth=0, margin=0.05];
+    dfake [label="old develop model ❌", fixedsize=false, fontsize=14, fillcolor=none, shape=none, width=0, height=0, penwidth=0, margin=0.05];
 }
 dfake -> d1 -> d2 -> d3 -> d4 -> d5 -> d6 -> d7 -> d8 -> d9 -> d10 -> d11 -> d12;
 
@@ -84,7 +84,7 @@ dn120_begin;
 dn120_end;
 subgraph {
     rank=source;
-    dnfake [label="develop new", fixedsize=false, fontsize=14, fillcolor=none, shape=none, width=0, height=0, penwidth=0, margin=0.05];
+    dnfake [label="new develop model ✅", fixedsize=false, fontsize=14, fillcolor=none, shape=none, width=0, height=0, penwidth=0, margin=0.05];
 }
 dnfake -> dn110_begin -> dn120_begin -> dn110_end -> dn120_end;
 
