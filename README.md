@@ -1,1 +1,3 @@
+apt install graphviz
+
 # dot
