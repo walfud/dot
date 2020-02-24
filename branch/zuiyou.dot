@@ -1,0 +1,79 @@
+// https://graphviz.gitlab.io/_pages/doc/info/attrs.html
+digraph dev {
+rankdir="BT";
+nodesep=0.5;
+ranksep=0.25;
+splines=true;
+forcelabels=false;
+
+// general
+node [style=filled, color="#00000055", fontcolor="black", font="Consolas", fontsize="8pt" ];
+edge [arrowhead=open, color="#00000055", penwidth=1];
+
+// graph
+node [label="", fixedsize=true, width=0.2, height=0.2, shape=circle, penwidth=2]
+
+// new 
+node [style=filled, color="#000000", fontcolor="black", font="Consolas", fontsize="8pt" ];
+edge [arrowhead=open, color="#000000", penwidth=1];
+
+node [group="develop_new", fillcolor="#FFE333"];
+
+dn110_begin;
+dnfix_begin;
+dnfix_end;
+dn110_end [label="发布, tag: 1.1.0"];
+dn120_begin;
+dn120_end [label="发布, tag: 1.2.0"];
+subgraph {
+    rank=source;
+    dnfake [label="master", fixedsize=false, fontsize=14, fillcolor=none, shape=none, width=0, height=0, penwidth=0, margin=0.05];
+}
+dnfake -> dn110_begin -> dnfix_begin -> dnfix_end -> dn120_begin -> dn110_end -> dn120_end;
+
+// hotfix/1.1.1
+node [group="hotfix/1.1.1", fillcolor="#FFE3F3"];
+dnfix_1;
+dnfix_2;
+dnfix_begin -> dnfix_1 [label="hotfix/1.1.1" color="#00c853", penwidth=3];
+dnfix_1 -> dnfix_2 -> dnfix_end;
+
+// dev/1.1.0
+node [group="dev/1.1.0", fillcolor="#FFE333"];
+dn110_1;
+dn110_2;
+dn110_3;
+dn110_4;
+dn110_begin -> dn110_1 [label="dev/1.1.0" color="red", penwidth=3];
+dn110_1 -> dn110_2 -> dn110_3 -> dn110_4;
+dn110_4 -> dn110_end;
+
+node  [group="feature_new_1", fixedsize=true, width=0.1, height=0.1, penwidth=1, fillcolor="#FB3DB5"];
+fn110_1_3_1;
+fn110_1_3_2;
+dn110_1 -> fn110_1_3_1 -> fn110_1_3_2 -> dn110_3;
+fn110_2_5_1;
+fn110_2_5_2;
+fn110_2_5_3;
+dn110_2 -> fn110_2_5_1 -> fn110_2_5_2 -> fn110_2_5_3 -> dn110_4;
+
+// dev/1.2.0
+node [group="dev/1.2.0", fillcolor="#FFE333"];
+dn120_1;
+dn120_2;
+dn120_3;
+dn120_begin -> dn120_1 [label="dev/1.2.0", color="red", penwidth=3];
+dn120_1 -> dn120_2 -> dn120_3;
+dn120_3 -> dn120_end;
+
+node  [group="feature_new_120", fixedsize=true, width=0.1, height=0.1, penwidth=1, fillcolor="#FB3DB5"];
+fn120_1_4_1;
+fn120_1_4_2;
+dn120_1 -> fn120_1_4_1 -> fn120_1_4_2 -> dn120_3;
+fn120_2_6_1;
+fn120_2_6_2;
+fn120_2_6_3 [label="无法进入当前迭代", fixedsize=false, fontsize=14, fillcolor=none, shape=none, width=0, height=0, penwidth=0, margin=0.05];
+dn120_2 -> fn120_2_6_1 -> fn120_2_6_2 -> fn120_2_6_3;
+
+
+}
