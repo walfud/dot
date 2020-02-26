@@ -44,9 +44,11 @@ dn110_1;
 dn110_2;
 dn110_3;
 dn110_4;
+dn110_5;
+dn110_6;
 dn110_begin -> dn110_1 [label="dev/1.1.0" color="red", penwidth=3];
-dn110_1 -> dn110_2 -> dn110_3 -> dn110_4;
-dn110_4 -> dn110_end;
+dn110_1 -> dn110_2 -> dn110_3 -> dn110_4 -> dn110_5 -> dn110_6;
+dn110_6 -> dn110_end;
 
 node  [group="feature_new_1", fixedsize=true, width=0.1, height=0.1, penwidth=1, fillcolor="#FB3DB5"];
 fn110_1_3_1;
@@ -64,9 +66,10 @@ node [group="dev/1.2.0", fillcolor="#FFE333"];
 dn120_1;
 dn120_2;
 dn120_3;
+dn120_4;
 dn120_begin -> dn120_1 [label="dev/1.2.0", color="red", penwidth=3];
-dn120_1 -> dn120_2 -> dn120_3;
-dn120_3 -> dn120_end;
+dn120_1 -> dn120_2 -> dn120_3 -> dn120_4;
+dn120_4 -> dn120_end;
 
 node  [group="feature_new_120", fixedsize=true, width=0.1, height=0.1, penwidth=1, fillcolor="#FB3DB5"];
 fn120_1_4_1;
